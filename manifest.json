@@ -1,12 +1,11 @@
 {
     "name": "Mythic Quest",
     "short_name": "Mythic Quest",
-    "start_url": "./index.html",
+    "start_url": "/",
     "display": "standalone",
     "theme_color": "#EBDBB2",
     "background_color": "#282828",
     "orientation": "portrait",
-    "scope": ".",
     "icons": [
         {
             "src": "/img/120.png",
