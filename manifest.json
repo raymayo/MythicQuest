@@ -1,0 +1,20 @@
+{
+    "name": "Mythic Quest",
+    "short_name": "MythicQuest",
+    "start_url": "/index.html",
+    "display": "fullscreen",
+    "theme_color": "#EBDBB2",
+    "background_color": "#282828",
+    "icons": [
+        {
+            "src": "/images/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
