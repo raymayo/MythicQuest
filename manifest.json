@@ -2,6 +2,7 @@
     "name": "Mythic Quest",
     "short_name": "Mythic Quest",
     "start_url": "/",
+    "scope": ".",
     "display": "standalone",
     "theme_color": "#EBDBB2",
     "background_color": "#282828",
