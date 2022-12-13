@@ -1,18 +1,26 @@
 {
     "name": "Mythic Quest",
-    "short_name": "MythicQuest",
+    "short_name": "Mythic Quest",
     "start_url": "/index.html",
-    "display": "fullscreen",
+    "display": "standalone",
     "theme_color": "#EBDBB2",
     "background_color": "#282828",
+    "orientation": "portrait",
+    "start_url": ".",
+    "scope": ".",
     "icons": [
         {
-            "src": "/images/icon-192x192.png",
+            "src": "/img/120.png",
+            "sizes": "120x120",
+            "type": "image/png"
+        },
+        {
+            "src": "/img/192.png",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "/images/icon-512x512.png",
+            "src": "/img/512.png",
             "sizes": "512x512",
             "type": "image/png"
         }
