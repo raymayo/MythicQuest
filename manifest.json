@@ -1,13 +1,12 @@
 {
     "name": "Mythic Quest",
     "short_name": "Mythic Quest",
-    "start_url": "/index.html",
+    "start_url": "https://raymayo.github.io/MythicQuest/",
     "display": "standalone",
     "theme_color": "#EBDBB2",
     "background_color": "#282828",
     "orientation": "portrait",
-    "start_url": ".",
-    "scope": ".",
+    "scope": "https://raymayo.github.io/MythicQuest/",
     "icons": [
         {
             "src": "/img/120.png",
