@@ -57,7 +57,7 @@ startButton.addEventListener('click', function () {
                 
 
 
-				if (indicator === 0) {
+				if (indicator === 9) {
                     questionContainer.style.display = 'none'
                     question.textContent = '';
                     answerContainer.innerHTML = '';
