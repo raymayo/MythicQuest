@@ -76,10 +76,10 @@ startButton.addEventListener('click', function () {
 
 				const triviaData = data.results;
 
-				// console.log(triviaData)
+				console.log(triviaData)
 
 				function showData() {
-					if (indicator === 9) {
+					if (indicator === 10) {
 						question.style.opacity = 0;
 						dataFetched = false;
 
