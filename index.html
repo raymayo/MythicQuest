@@ -27,13 +27,18 @@
 <body>
     <div id="main-container">
             <h1 id="game-title"><span>Mythic </span><br />Quest</h1>
-            <h2 id="scoreBox"></h2>
             <button id="start-button">Start Game</button>
         <div id="question-box">
             <p id="question"></p>
         </div>
         <div id="answer-container"></div>
+    <div id="end-container">
+        <h2 class="endContent" id="endMessage">Your score is:</h2>
+        <h1 class="endContent" id="scoreBox">08</h1>
+        <button class="endContent" id="retryButton">Play Again?</button>
     </div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
     <script src="script.js"></script>

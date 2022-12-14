@@ -1,12 +1,12 @@
-if('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js').then(registration => {
-        console.log('SW Registered!');
-        console.log(registration)
-    }).catch(error => {
-        console.log('SW Registration Failed!');
-        console.log(error)
-    })
-}
+// if('serviceWorker' in navigator) {
+//     navigator.serviceWorker.register('sw.js').then(registration => {
+//         console.log('SW Registered!');
+//         console.log(registration)
+//     }).catch(error => {
+//         console.log('SW Registration Failed!');
+//         console.log(error)
+//     })
+// }
 
 
 
@@ -22,6 +22,9 @@ let questionContainer = document.querySelector('#question-box')
 let gameTitle = document.querySelector('#game-title');
 let scoreBox = document.querySelector('#scoreBox');
 
+let endContainer = document.querySelector('#end-container');
+let retryButton = document.querySelector('#retryButton');
+
 
 let indicator = -1;
 let score = 0;
@@ -33,7 +36,6 @@ startButton.addEventListener('click', function () {
     let startBtnTl = gsap.timeline()
     startBtnTl.to(startButton, { scale: .6, ease: 'expo.out' })
     startBtnTl.to(startButton, { scale: 1, opacity:0, display:'none', ease: 'expo.out' }, '<.1')
-    startBtnTl.to(scoreBox, {opacity: 0, display: 'none', ease: 'expo.out' })
     fetch('https://opentdb.com/api.php?amount=10&category=20&type=multiple')
 		.then(function (response) {
 			return response.json();
@@ -55,22 +57,23 @@ startButton.addEventListener('click', function () {
                 
 
 
-				if (indicator === 9) {
-					console.log('no more question');
+				if (indicator === 1) {
                     questionContainer.style.display = 'none'
-                    startTl.fromTo(startButton, { display: 'none', opacity: 0, y: 150, ease: 'expo.inOut' }, { display: 'grid', opacity: 1, y: 350, ease: 'expo.inOut' })
-                    startTl.fromTo(scoreBox, { display: 'none', opacity: 0, ease: 'expo.inOut' }, { display: 'grid', opacity: 1, ease: 'expo.inOut' })
                     question.textContent = '';
                     answerContainer.innerHTML = '';
-                    scoreBox.textContent = `Score: ${score}`
-                    startButton.textContent = 'Play Again?';
- 
-
+                    endContainer.style.display = 'grid';
+                    gsap.to(endContainer, { display: 'grid', opacity: 1, ease: 'expo.out' })
+                    gsap.to('.endContent', { display: 'grid' })
+                    gsap.fromTo('.endContent', { opacity: 0,y:-50, ease: 'expo.inout' }, { opacity: 1, y:0,stagger:.1, ease: 'expo.inout' })
+                    retryButton.addEventListener('click', () => {
+                        let retryTl = gsap.timeline()
+                        retryTl.to(retryButton, { scale: .6, ease: 'expo.out' })
+                        retryTl.to(retryButton, { scale: 1, opacity: 0, ease: 'expo.out' }, '<.1')
+                        retryTl.to(endContainer,{opacity:0, display:'none', expo:'expo.out'},'<')
+                        startButton.click()
+                    })
+                    scoreBox.textContent = `0${score}`
 				} else {
-
-
-
-
                     ++indicator;
                     question.textContent = `${decodeData(triviaData[indicator].question) }`;
 
@@ -100,7 +103,7 @@ startButton.addEventListener('click', function () {
 					choices.forEach((e) => {
 						e.addEventListener('click', () => {
                             let clickTl = gsap.timeline()
-                            clickTl.to(e, { scale: .6, ease: 'expo.out' })
+                            clickTl.to(e, { scale: .8, ease: 'expo.out' })
                             clickTl.to(e, { scale: 1, ease: 'expo.out' },'<.1')
                             if (e.style.backgroundColor !== "" ){
                                 return;
@@ -120,8 +123,6 @@ startButton.addEventListener('click', function () {
 
 
             function goNextQuestion() {
-
-                // let goNextTl = gsap.timeline();
                 gsap.to('#question', { delay: .5, display: 'none', opacity: 0, ease: 'expo.Out' })
                 setTimeout(showData, 1000);
                 gsap.to('#question', { delay: 1, display: 'grid', opacity: 1, ease: 'expo.Out' })
@@ -132,13 +133,11 @@ startButton.addEventListener('click', function () {
             function changeColor() {
                 let greenIndicator = document.querySelectorAll(".right-answer");
                 greenIndicator.forEach((e) => {
-                    // e.style.backgroundColor = "#5B8266";
                     gsap.to(e, { duration: .2 , backgroundColor: "#5B8266", ease: 'expo.Out' })
                 });
 
                 let redIndicator = document.querySelectorAll(".wrong-answer");
                 redIndicator.forEach((e) => {
-                    // e.style.backgroundColor = "#BC4749";
                     gsap.to(e, { duration: .2, backgroundColor: "#BC4749", ease: 'expo.Out' })
                 });
             }

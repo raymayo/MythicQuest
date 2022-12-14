@@ -15,16 +15,20 @@ button {
 button {
     cursor: pointer
 }
-
+#start-button,
 #question-box,
 .option {
-    box-shadow: rgba(0, 0, 0, .24) 0 3px 8px
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-#start-container,
+#start-button,
 .option,
 body {
     display: grid
+}
+
+h1{
+    text-shadow:rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 * {
@@ -37,15 +41,12 @@ body {
     font-family: Cinzel, serif;
     box-sizing: border-box;
     -webkit-user-select: none;
-    -webkit-touch-callout: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
 }
 
-#end-container {
-    display: none
-}
+
 
 :root {
     --bg: #282828;
@@ -55,7 +56,7 @@ body {
     --surface: #D65D0E
 }
 
-h1 {
+#game-title {
     font-size: 6rem;
     font-weight: 700;
     line-height: .8;
@@ -67,23 +68,34 @@ button {
     border: none;
     padding: .3em 1em;
     font-size: 1.8rem;
-    font-weight: 500;
+    font-weight: 600;
     border-radius: 8px;
     font-family: Cinzel, serif
 }
 
 #question-box,
-#scoreBox,
 .option {
     border-radius: 8px
 }
 
 body {
-    background-color: var(--bg);
+    min-font-size: 16px;
+    background-color: #343432;
     color: var(--textColor);
     width: 100vw;
     text-align: center;
-    place-items: center
+    place-items: center;
+    background-image: url('./img/Pattern.svg');
+    background-size: 20rem;
+    background-repeat: repeat;
+}
+
+#end-container {
+    display: none;
+    width: 100%;
+    height: 80vh;
+    text-align: center;
+    place-items: center;
 }
 
 #main-container {
@@ -106,14 +118,16 @@ body {
     line-height: 1.5;
     margin-bottom: 10rem;
     margin-top: 5%;
-    display: none
+    display: none;
+    font-size: 1.2rem;
+    text-overflow: clip;
 }
 
 #question {
     color: #1d2021;
     font-weight: 600;
-    font-size: 1.5rem;
-    padding: 1.5rem;
+    font-size: 100%;
+    padding: 0 1.5rem;
     width: 100%
 }
 
@@ -127,13 +141,14 @@ span {
     grid-template-columns: 1fr 1fr;
     gap: 15px;
     display: none;
-    width: 100%
+    width: 100%;
+    font-size: 1rem;
 }
 
 .option {
     background-color: #7c6f64;
     color: #ebdbb2;
-    font-size: 1.3rem;
+    font-size: 100%;
     padding: 1em .5em;
     align-items: center;
     width: 100%;
@@ -149,10 +164,26 @@ span {
 }
 
 #scoreBox {
-    font-size: 4rem;
-    position: absolute;
-    top: 25%;
-    padding: 3%;
-    color: #5b8266;
-    display: none
+    font-size: 6rem;
+    padding: 8rem;
+    aspect-ratio: 1/1;
+    font-weight: 700;
+    /* color: #5B8266; */
+    background: url('./img/ScoreBg.svg') no-repeat center;
+    text-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    background-size: 20rem;
+}
+
+#end-container{
+    align-content: center;
+    row-gap: 40px;
+}
+
+#end-container h2{
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+#retryButton{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
