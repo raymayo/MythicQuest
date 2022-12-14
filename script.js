@@ -57,7 +57,7 @@ startButton.addEventListener('click', function () {
             // startTl.fromTo(answerContainer, { display: 'none', opacity: 0, scale: 0, ease: 'expo.inOut' }, { display: 'grid', opacity: 1, scale: 1,  ease: 'expo.inOut' },'<')
 
             indicator = -1;
-            score = 0;
+
 			const triviaData = data.results;
 
 
@@ -82,6 +82,7 @@ startButton.addEventListener('click', function () {
                         retryTl.to(questionContainer, { opacity: 0, display: 'none',  scale: 0, ease: 'expo.inOut' },'<')
                         retryTl.to(answerContainer, { opacity: 0, display: 'none',  scale: 0, ease: 'expo.inOut' }, '<')
                         startButton.click();
+                        score = 0;
                     })
                     scoreBox.textContent = `0${score}`
 				} else {
