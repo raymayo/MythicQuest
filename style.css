@@ -167,8 +167,7 @@ span {
 }
 
 #scoreBox {
-    font-size: 8rem;
-    /* padding: 8rem; */
+    font-size: 100%;
     aspect-ratio: 1/1;
     font-weight: 700;
     background: url('./img/ScoreBg.svg') no-repeat center;
@@ -177,12 +176,14 @@ span {
     width: 70%;
     display: grid;
     place-items: center;
+    /* border: solid 1px red; */
 }
 
 #end-container{
     align-content: start;
     row-gap: 50px;
     padding-top: 3rem;
+    font-size: 8rem;
 }
 
 #end-container h2{

@@ -30,12 +30,14 @@ let indicator = -1;
 let score = 0;
 
 
+
 startButton.addEventListener('click', function () {
 
 
     let startBtnTl = gsap.timeline()
     startBtnTl.to(startButton, { scale: .6, ease: 'expo.out' })
     startBtnTl.to(startButton, { scale: 1, opacity:0, display:'none', ease: 'expo.out' }, '<.1')
+
     fetch('https://opentdb.com/api.php?amount=10&category=20&type=multiple')
 		.then(function (response) {
 			return response.json();
@@ -43,12 +45,19 @@ startButton.addEventListener('click', function () {
 		.then(function (data) {
             
             let startTl = gsap.timeline();
-
             startTl.to('#game-title', { y: 0, ease: 'expo.inOut', scale: .6 })
-            startTl.fromTo(questionContainer, { display: 'none', opacity: 0, scale: 0, ease: 'expo.inOut' }, { display: 'grid', opacity: 1, scale: 1, ease: 'expo.inOut' },'<.15')
-            startTl.fromTo(answerContainer, { display: 'none', opacity: 0, scale: 0, ease: 'expo.inOut' }, { display: 'grid', opacity: 1, scale: 1,  ease: 'expo.inOut' },'<')
+            startTl.to(questionContainer, { duration: .1, display: 'none', opacity: 0, scale: 0 }, '<')
+            startTl.to(answerContainer, { duration: .1, display: 'none', opacity: 0, scale: 0 }, '<')
+
+
+
+            startTl.to(questionContainer, { display: 'grid', opacity: 1, scale: 1, ease: 'expo.inOut' },'<.15')
+            startTl.to(answerContainer, { display: 'grid', opacity: 1, scale: 1, ease: 'expo.inOut' }, '<')
+            // startTl.fromTo(questionContainer, { display: 'none', opacity: 0, scale: 0, ease: 'expo.inOut' }, { display: 'grid', opacity: 1, scale: 1, ease: 'expo.inOut' },'<.15')
+            // startTl.fromTo(answerContainer, { display: 'none', opacity: 0, scale: 0, ease: 'expo.inOut' }, { display: 'grid', opacity: 1, scale: 1,  ease: 'expo.inOut' },'<')
 
             indicator = -1;
+            score = 0;
 			const triviaData = data.results;
 
 
@@ -66,12 +75,13 @@ startButton.addEventListener('click', function () {
                     gsap.to('.endContent', { display: 'grid' })
                     gsap.fromTo('.endContent', { opacity: 0,y:-50, ease: 'expo.inout' }, { opacity: 1, y:0,stagger:.1, ease: 'expo.inout' })
                     retryButton.addEventListener('click', () => {
-                        let retryTl = gsap.timeline()
-                        retryTl.to(retryButton, { scale: .6, ease: 'expo.out' })
-                        retryTl.to(retryButton, { scale: 1, opacity: 0, ease: 'expo.out' }, '<.1')
-                        retryTl.to(endContainer,{opacity:0, display:'none', expo:'expo.out'},'<')
-                        score = 0;
-                        startButton.click()
+                        let retryTl = gsap.timeline();
+                        retryTl.to(retryButton, { scale: .6, ease: 'expo.out' });
+                        retryTl.to(retryButton, { scale: 1, opacity: 0, ease: 'expo.out' }, '<.1');
+                        retryTl.to(endContainer,{opacity:0, display:'none', expo:'expo.out'},'<.1');
+                        retryTl.to(questionContainer, { opacity: 0, display: 'none',  scale: 0, ease: 'expo.inOut' },'<')
+                        retryTl.to(answerContainer, { opacity: 0, display: 'none',  scale: 0, ease: 'expo.inOut' }, '<')
+                        startButton.click();
                     })
                     scoreBox.textContent = `0${score}`
 				} else {
