@@ -173,17 +173,19 @@ span {
     background: url('./img/ScoreBg.svg') no-repeat center;
     text-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     background-size: contain;
-    padding: 6rem;
+    /* padding: 6rem; */
+    width: 80%;
     display: grid;
     place-items: center;
-    /* border: solid 1px red; */
 }
 
 #end-container{
+    display: grid;
     align-content: start;
     row-gap: 50px;
     padding-top: 3rem;
     font-size: 8rem;
+    display: none;
 }
 
 #end-container h2{
