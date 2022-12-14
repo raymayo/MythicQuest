@@ -49,6 +49,10 @@ h1{
     user-select: none;
 }
 
+*{
+    /* outline: solid 1px red; */
+}
+
 
 
 :root {
@@ -63,7 +67,7 @@ h1{
     font-size: 6rem;
     font-weight: 700;
     line-height: .8;
-    transform: translate(0, 150px)
+    transform: translate(0, 150px);
 }
 
 button {
@@ -82,12 +86,14 @@ button {
 }
 
 body {
-    min-font-size: 16px;
+    overflow: hidden;
+    display: grid;
     background-color: #343432;
     color: var(--textColor);
     width: 100vw;
     text-align: center;
-    place-items: center;
+    /* place-items: center;
+    place-content: center; */
     background-image: url('./img/Pattern.svg');
     background-size: 20rem;
     background-repeat: repeat;
@@ -102,36 +108,31 @@ body {
 }
 
 #main-container {
-    width: 90%;
+    margin: 0 10%;
     align-content: start;
-    justify-items: center
+    justify-items: center;
+    row-gap: 3rem;
 }
 
-#question-container {
-    width: 100%;
-    display: none
-}
 
 #question-box {
     word-break: break-word;
     padding: 1rem;
     width: 100%;
-    height: 30vh;
+    height: 35vh;
     align-items: center;
     line-height: 1.5;
-    margin-bottom: 10rem;
-    margin-top: 5%;
     display: none;
-    font-size: 1.2rem;
-    text-overflow: clip;
+    text-overflow: ellipsis;
+    font-size: calc(1.5vw + 1.5vh)
 }
 
 #question {
+    text-overflow: ellipsis;
     color: #1d2021;
     font-weight: 600;
-    font-size: 100%;
     padding: 0 1.5rem;
-    width: 100%
+    width: 100%;
 }
 
 #scoreBox,
@@ -141,21 +142,19 @@ span {
 }
 
 #answer-container {
-    grid-template-columns: 1fr 1fr;
     gap: 15px;
     display: none;
     width: 100%;
-    font-size: 1rem;
 }
 
 .option {
     background-color: #7c6f64;
-    color: red;
-    font-size: 100%;
-    padding: 1em .5em;
+    color: #ebdbb2;
+    font-size: 1rem;
+    padding: .5em;
     align-items: center;
     width: 100%;
-    height: 100%
+    height:5.5rem;
 }
 
 span {
@@ -167,13 +166,12 @@ span {
 }
 
 #scoreBox {
-    font-size: 90%;
+    font-size: 6rem;
     aspect-ratio: 1/1;
     font-weight: 700;
     background: url('./img/ScoreBg.svg') no-repeat center;
     text-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     background-size: contain;
-    /* padding: 6rem; */
     width: 80%;
     display: grid;
     place-items: center;
@@ -184,7 +182,6 @@ span {
     align-content: start;
     row-gap: 40px;
     padding-top: 3rem;
-    font-size: 6rem;
     display: none;
 }
 
@@ -195,4 +192,36 @@ span {
 
 #retryButton{
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+@media only screen and (orientation: landscape) {
+    #answer-container {
+            grid-template-columns: 1fr 1fr;
+            padding-top: 6rem;
+        }
+
+        #question{
+            font-size:1.5rem
+        }
+
+        #scoreBox {
+            width: 20%;
+        }
+
+        #end-container {
+            row-gap: 100px;
+        }
+
+        #game-title {
+            font-size: 10rem;
+        }
+
+        span{
+            font-size: 3rem;
+        }
+
+        .option{
+            font-size: 1.2rem;
+        }
+
 }

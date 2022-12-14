@@ -9,158 +9,211 @@ if('serviceWorker' in navigator) {
     })
 }
 
-
-
 let vh = window.innerHeight * 0.01;
 document.documentElement.style.setProperty('--vh', `${vh}px`);
-
 
 let startButton = document.querySelector('#start-button');
 let question = document.querySelector('#question');
 let answerContainer = document.querySelector('#answer-container');
 let mainContainer = document.querySelector('#main-container');
-let questionContainer = document.querySelector('#question-box')
+let questionContainer = document.querySelector('#question-box');
 let gameTitle = document.querySelector('#game-title');
 let scoreBox = document.querySelector('#scoreBox');
 
 let endContainer = document.querySelector('#end-container');
 let retryButton = document.querySelector('#retryButton');
 
-
-let indicator = -1;
+let indicator = 0;
 let score = 0;
-
-
+let dataFetched = false;
 
 startButton.addEventListener('click', function () {
+	let startBtnTl = gsap.timeline();
+	startBtnTl.to(startButton, { scale: 0.6, ease: 'expo.out' });
+	startBtnTl.to(
+		startButton,
+		{ scale: 1, opacity: 0, display: 'none', ease: 'expo.out' },
+		'<.1'
+	);
 
+	if (!dataFetched) {
+		dataFetched = true;
 
-    let startBtnTl = gsap.timeline()
-    startBtnTl.to(startButton, { scale: .6, ease: 'expo.out' })
-    startBtnTl.to(startButton, { scale: 1, opacity:0, display:'none', ease: 'expo.out' }, '<.1')
+		fetch('https://opentdb.com/api.php?amount=10&category=20&type=multiple')
+			.then(function (response) {
+				return response.json();
+			})
+			.then(function (data) {
+				let startTl = gsap.timeline();
+				startTl.to('#game-title', {
+					y: 0,
+					ease: 'expo.inOut',
+					fontSize: '1.5rem',
+					paddingTop: '3rem',
+				});
+				startTl.to(
+					questionContainer,
+					{ duration: 0.1, display: 'none', opacity: 0, scale: 0 },
+					'<'
+				);
+				startTl.to(
+					answerContainer,
+					{ duration: 0.1, display: 'none', opacity: 0, scale: 0 },
+					'<'
+				);
 
-    fetch('https://opentdb.com/api.php?amount=10&category=20&type=multiple')
-		.then(function (response) {
-			return response.json();
-		})
-		.then(function (data) {
-            
-            let startTl = gsap.timeline();
-            startTl.to('#game-title', { y: 0, ease: 'expo.inOut', scale: .6 })
-            startTl.to(questionContainer, { duration: .1, display: 'none', opacity: 0, scale: 0 }, '<')
-            startTl.to(answerContainer, { duration: .1, display: 'none', opacity: 0, scale: 0 }, '<')
+				startTl.to(
+					questionContainer,
+					{ display: 'grid', opacity: 1, scale: 1, ease: 'expo.inOut' },
+					'<.15'
+				);
+				startTl.to(
+					answerContainer,
+					{ display: 'grid', opacity: 1, scale: 1, ease: 'expo.inOut' },
+					'<'
+				);
+				startTl.to('#question', { opacity: 1, ease: 'expo.inOut' }, '<.3');
 
+				const triviaData = data.results;
 
-            startTl.to(questionContainer, { display: 'grid', opacity: 1, scale: 1, ease: 'expo.inOut' },'<.15')
-            startTl.to(answerContainer, { display: 'grid', opacity: 1, scale: 1, ease: 'expo.inOut' }, '<')
+				// console.log(triviaData)
 
-            indicator = -1;
+				function showData() {
+					if (indicator === 9) {
+						question.style.opacity = 0;
+						dataFetched = false;
 
-			const triviaData = data.results;
+						let endTl = gsap.timeline();
+						endTl.to(questionContainer, {
+							opacity: 0,
+							display: 'none',
+							ease: 'expo.inOut',
+						});
+						endTl.to(
+							answerContainer,
+							{ opacity: 0, display: 'none', ease: 'expo.inOut' },
+							'<'
+						);
+						endTl.to(endContainer, {
+							display: 'grid',
+							opacity: 1,
+							ease: 'expo.out',
+						});
+						endTl.to(retryButton, { opacity: 1, ease: 'expo.out' }, '<');
+						retryButton.addEventListener('click', () => {
+							let retryTl = gsap.timeline();
 
+							// TODO fix ending animation and retry animation
+							retryTl.to(retryButton, { scale: 0.6, ease: 'expo.out' });
+							retryTl.to(
+								retryButton,
+								{ scale: 1, opacity: 0, ease: 'expo.out' },
+								'<.1'
+							);
+							retryTl.to(
+								endContainer,
+								{ opacity: 0, display: 'none', expo: 'expo.out' },
+								'<.1'
+							);
+							score = 0;
+							indicator = 0;
+							startButton.click();
+						});
+						scoreBox.textContent = `0${score}`;
+					} else {
+						gsap.to('#question', { opacity: 1, ease: 'expo.out' });
 
+						question.textContent = `${decodeData(
+							triviaData[indicator].question
+						)}`;
 
-			function showData() {
-                
+						answerContainer.innerHTML = '';
 
+						let wrongAnswerList = triviaData[indicator].incorrect_answers;
+						let rightAnswerList = triviaData[indicator].correct_answer;
 
-				if (indicator === 9) {
-                    questionContainer.style.display = 'none'
-                    question.textContent = '';
-                    answerContainer.innerHTML = '';
-                    endContainer.style.display = 'grid';
-                    gsap.to(endContainer, { display: 'grid', opacity: 1, ease: 'expo.out' })
-                    gsap.to('.endContent', { display: 'grid' })
-                    gsap.fromTo('.endContent', { opacity: 0,y:-50, ease: 'expo.inout' }, { opacity: 1, y:0,stagger:.1, ease: 'expo.inout' })
-                    retryButton.addEventListener('click', () => {
-                        let retryTl = gsap.timeline();
-                        retryTl.to(retryButton, { scale: .6, ease: 'expo.out' });
-                        retryTl.to(retryButton, { scale: 1, opacity: 0, ease: 'expo.out' }, '<.1');
-                        retryTl.to(endContainer,{opacity:0, display:'none', expo:'expo.out'},'<.1');
-                        retryTl.to(questionContainer, { opacity: 0, display: 'none',  scale: 0, ease: 'expo.inOut' },'<')
-                        retryTl.to(answerContainer, { opacity: 0, display: 'none',  scale: 0, ease: 'expo.inOut' }, '<')
-                        startButton.click();
-                        score = 0;
-                    })
-                    scoreBox.textContent = `0${score}`
-				} else {
-                    ++indicator;
-                    question.textContent = `${decodeData(triviaData[indicator].question) }`;
+						wrongAnswerList.forEach((list) => {
+							let wrongAnswer = document.createElement('p');
+							wrongAnswer.className = 'wrong-answer option';
+							clone = wrongAnswer.cloneNode();
+							clone.textContent = `${decodeData(list)}`;
+							answerContainer.appendChild(clone);
+						});
 
-					answerContainer.innerHTML = '';
+						let rightAnswers = document.createElement('p');
+						rightAnswers.className = 'right-answer option';
+						rightAnswers.textContent = `${decodeData(rightAnswerList)}`;
+						answerContainer.insertBefore(
+							rightAnswers,
+							answerContainer.children[Math.floor(Math.random() * 3)]
+						);
 
-					let wrongAnswerList = triviaData[indicator].incorrect_answers;
-					let rightAnswerList = triviaData[indicator].correct_answer;
+						let choices = document.querySelectorAll('.option');
 
-					wrongAnswerList.forEach((list) => {
-						let wrongAnswer = document.createElement('p');
-						wrongAnswer.className = 'wrong-answer option';
-						clone = wrongAnswer.cloneNode();
-                        clone.textContent = `${decodeData(list)}`;
-						answerContainer.appendChild(clone);
+						choices.forEach((e) => {
+							e.addEventListener('click', () => {
+								gsap.to('#question', {
+									delay: 0.3,
+									opacity: 0,
+									ease: 'expo.out',
+								});
+								gsap.to('.option', {
+									delay: 0.3,
+									duration: 0.3,
+									backgroundColor: '#7C6F64',
+									color: '#7C6F64',
+									ease: 'expo.out',
+								});
+								indicator++;
+								let clickTl = gsap.timeline();
+								clickTl.to(e, { scale: 0.8, ease: 'expo.out' });
+								clickTl.to(e, { scale: 1, ease: 'expo.out' }, '<.1');
+								if (e.style.backgroundColor !== '') {
+									return;
+								} else {
+									if (e.classList.contains('right-answer')) score++;
+									changeColor();
+									goNextQuestion();
+								}
+							});
+						});
+					}
+				}
+
+				showData();
+
+				function goNextQuestion() {
+					setTimeout(showData, 1000);
+				}
+
+				function changeColor() {
+					let greenIndicator = document.querySelectorAll('.right-answer');
+					greenIndicator.forEach((e) => {
+						gsap.to(e, {
+							duration: 0.2,
+							backgroundColor: '#5B8266',
+							ease: 'expo.out',
+						});
 					});
 
-					let rightAnswers = document.createElement('p');
-					rightAnswers.className = 'right-answer option';
-                    rightAnswers.textContent = `${decodeData(rightAnswerList)}`;
-					answerContainer.insertBefore(
-						rightAnswers,
-						answerContainer.children[Math.floor(Math.random() * 3)]
-					);
-
-					let choices = document.querySelectorAll('.option');
-
-					choices.forEach((e) => {
-						e.addEventListener('click', () => {
-                            let clickTl = gsap.timeline()
-                            clickTl.to(e, { scale: .8, ease: 'expo.out' })
-                            clickTl.to(e, { scale: 1, ease: 'expo.out' },'<.1')
-                            if (e.style.backgroundColor !== "" ){
-                                return;
-                            }else{
-                                if (e.classList.contains("right-answer")) score++;
-                                changeColor();
-                                goNextQuestion();
-                            }
+					let redIndicator = document.querySelectorAll('.wrong-answer');
+					redIndicator.forEach((e) => {
+						gsap.to(e, {
+							duration: 0.2,
+							backgroundColor: '#BC4749',
+							ease: 'expo.out',
 						});
 					});
 				}
-			}
-
-            showData();
-
-
-
-
-            function goNextQuestion() {
-                gsap.to('#question', { delay: .5, display: 'none', opacity: 0, ease: 'expo.Out' })
-                setTimeout(showData, 1000);
-                gsap.to('#question', { delay: 1, display: 'grid', opacity: 1, ease: 'expo.Out' })
-                gsap.to('.option', { delay: .5, duration: .3, backgroundColor: '#7C6F64', color:'#7C6F64', ease: 'expo.Out' })
-            }
-
-
-            function changeColor() {
-                let greenIndicator = document.querySelectorAll(".right-answer");
-                greenIndicator.forEach((e) => {
-                    gsap.to(e, { duration: .2 , backgroundColor: "#5B8266", ease: 'expo.Out' })
-                });
-
-                let redIndicator = document.querySelectorAll(".wrong-answer");
-                redIndicator.forEach((e) => {
-                    gsap.to(e, { duration: .2, backgroundColor: "#BC4749", ease: 'expo.Out' })
-                });
-            }
-
-
-
-
-
-		});
+			});
+	}
 });
 
-function decodeData(text){
-    return text.replace(/&#039;/g, "'").replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, "&")
+function decodeData(text) {
+	return text
+		.replace(/&#039;/g, "'")
+		.replace(/&quot;/g, '"')
+		.replace(/&lt;/g, '<')
+		.replace(/&gt;/g, '>')
+		.replace(/&amp;/g, '&');
 }
-
-
