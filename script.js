@@ -50,11 +50,8 @@ startButton.addEventListener('click', function () {
             startTl.to(answerContainer, { duration: .1, display: 'none', opacity: 0, scale: 0 }, '<')
 
 
-
             startTl.to(questionContainer, { display: 'grid', opacity: 1, scale: 1, ease: 'expo.inOut' },'<.15')
             startTl.to(answerContainer, { display: 'grid', opacity: 1, scale: 1, ease: 'expo.inOut' }, '<')
-            // startTl.fromTo(questionContainer, { display: 'none', opacity: 0, scale: 0, ease: 'expo.inOut' }, { display: 'grid', opacity: 1, scale: 1, ease: 'expo.inOut' },'<.15')
-            // startTl.fromTo(answerContainer, { display: 'none', opacity: 0, scale: 0, ease: 'expo.inOut' }, { display: 'grid', opacity: 1, scale: 1,  ease: 'expo.inOut' },'<')
 
             indicator = -1;
 
@@ -66,7 +63,7 @@ startButton.addEventListener('click', function () {
                 
 
 
-				if (indicator === 9) {
+				if (indicator === 0) {
                     questionContainer.style.display = 'none'
                     question.textContent = '';
                     answerContainer.innerHTML = '';

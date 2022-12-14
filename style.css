@@ -173,8 +173,7 @@ span {
     background: url('./img/ScoreBg.svg') no-repeat center;
     text-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     background-size: contain;
-    /* width: 70%; */
-    padding: 8rem;
+    padding: 6rem;
     display: grid;
     place-items: center;
     /* border: solid 1px red; */
