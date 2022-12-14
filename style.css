@@ -167,19 +167,22 @@ span {
 }
 
 #scoreBox {
-    font-size: 6rem;
-    padding: 8rem;
+    font-size: 8rem;
+    /* padding: 8rem; */
     aspect-ratio: 1/1;
     font-weight: 700;
-    /* color: #5B8266; */
     background: url('./img/ScoreBg.svg') no-repeat center;
     text-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    background-size: 20rem;
+    background-size: contain;
+    width: 70%;
+    display: grid;
+    place-items: center;
 }
 
 #end-container{
-    align-content: center;
-    row-gap: 40px;
+    align-content: start;
+    row-gap: 50px;
+    padding-top: 3rem;
 }
 
 #end-container h2{

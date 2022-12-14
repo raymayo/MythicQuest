@@ -57,7 +57,7 @@ startButton.addEventListener('click', function () {
                 
 
 
-				if (indicator === 9) {
+				if (indicator === 0) {
                     questionContainer.style.display = 'none'
                     question.textContent = '';
                     answerContainer.innerHTML = '';
@@ -70,6 +70,7 @@ startButton.addEventListener('click', function () {
                         retryTl.to(retryButton, { scale: .6, ease: 'expo.out' })
                         retryTl.to(retryButton, { scale: 1, opacity: 0, ease: 'expo.out' }, '<.1')
                         retryTl.to(endContainer,{opacity:0, display:'none', expo:'expo.out'},'<')
+                        score = 0;
                         startButton.click()
                     })
                     scoreBox.textContent = `0${score}`
