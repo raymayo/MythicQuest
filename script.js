@@ -2,7 +2,6 @@ if('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js').then(registration => {
         console.log('SW Registered!');
         console.log(registration)
-        console.log('y u');
     }).catch(error => {
         console.log('SW Registration Failed!');
         console.log(error)
@@ -29,10 +28,10 @@ let dataFetched = false;
 
 startButton.addEventListener('click', function () {
 	let startBtnTl = gsap.timeline();
-	startBtnTl.to(startButton, { scale: 0.6, ease: 'expo.out' });
+	startBtnTl.to(startButton, { scale: 0.6, ease: 'power2.out' });
 	startBtnTl.to(
 		startButton,
-		{ scale: 1, opacity: 0, display: 'none', ease: 'expo.out' },
+		{ scale: 1, opacity: 0, display: 'none', ease: 'power2.out' },
 		'<.1'
 	);
 
@@ -45,83 +44,40 @@ startButton.addEventListener('click', function () {
 			})
 			.then(function (data) {
 				let startTl = gsap.timeline();
-				startTl.to('#game-title', {
-					y: 0,
-					ease: 'expo.inOut',
-					fontSize: '1.5rem',
-					paddingTop: '3rem',
-				});
-				startTl.to(
-					questionContainer,
-					{ duration: 0.1, display: 'none', opacity: 0, scale: 0 },
-					'<'
-				);
-				startTl.to(
-					answerContainer,
-					{ duration: 0.1, display: 'none', opacity: 0, scale: 0 },
-					'<'
-				);
-
-				startTl.to(
-					questionContainer,
-					{ display: 'grid', opacity: 1, scale: 1, ease: 'expo.inOut' },
-					'<.15'
-				);
-				startTl.to(
-					answerContainer,
-					{ display: 'grid', opacity: 1, scale: 1, ease: 'expo.inOut' },
-					'<'
-				);
-				startTl.to('#question', { opacity: 1, ease: 'expo.inOut' }, '<.3');
+				startTl.to('#game-title', { y: 0, fontSize: '1.5rem', paddingTop: '3rem', ease: 'power2.inOut' });
+				startTl.to(questionContainer,{display:'none', opacity: 0, scale: 0 },'<');
+				startTl.to(answerContainer,{display:'none', opacity: 0, scale: 0 },'<');
+				startTl.to('#data-container', { display: 'grid' })
+				startTl.to(questionContainer, { display: 'grid', opacity: 1, scale: 1 }, '<');
+				startTl.to(answerContainer, { display: 'grid', opacity: 1, scale: 1 }, '<');
 
 				const triviaData = data.results;
 
 				console.log(triviaData)
 
 				function showData() {
-					if (indicator === 10) {
+					if (indicator === 2) {
 						question.style.opacity = 0;
 						dataFetched = false;
 
 						let endTl = gsap.timeline();
-						endTl.to(questionContainer, {
-							opacity: 0,
-							display: 'none',
-							ease: 'expo.inOut',
-						});
-						endTl.to(
-							answerContainer,
-							{ opacity: 0, display: 'none', ease: 'expo.inOut' },
-							'<'
-						);
-						endTl.to(endContainer, {
-							display: 'grid',
-							opacity: 1,
-							ease: 'expo.out',
-						});
-						endTl.to(retryButton, { opacity: 1, ease: 'expo.out' }, '<');
+						endTl.to(questionContainer, {opacity: 0,display: 'none',ease: 'power2.inOut',});
+						endTl.to(answerContainer,{ opacity: 0, display: 'none', ease: 'power2.inOut' },'<');
+						endTl.to(endContainer, {display: 'grid',opacity: 1, ease: 'power2.out',});
+						endTl.to(retryButton, { opacity: 1, ease: 'power2.out' }, '<');
 						retryButton.addEventListener('click', () => {
 							let retryTl = gsap.timeline();
 
-							// TODO fix ending animation and retry animation
-							retryTl.to(retryButton, { scale: 0.6, ease: 'expo.out' });
-							retryTl.to(
-								retryButton,
-								{ scale: 1, opacity: 0, ease: 'expo.out' },
-								'<.1'
-							);
-							retryTl.to(
-								endContainer,
-								{ opacity: 0, display: 'none', expo: 'expo.out' },
-								'<.1'
-							);
+							retryTl.to(retryButton, { scale: 0.6, ease: 'power2.out' });
+							retryTl.to(retryButton,{ scale: 1, opacity: 0, ease: 'power2.out' },'<.1');
+							retryTl.to(endContainer,{ opacity: 0, display: 'none', power2: 'power2.out' },'<.1');
 							score = 0;
 							indicator = 0;
 							startButton.click();
 						});
 						scoreBox.textContent = `0${score}`;
 					} else {
-						gsap.to('#question', { opacity: 1, ease: 'expo.out' });
+						gsap.to('#question', { opacity: 1, ease: 'power2.out' });
 
 						question.textContent = `${decodeData(
 							triviaData[indicator].question
@@ -155,19 +111,19 @@ startButton.addEventListener('click', function () {
 								gsap.to('#question', {
 									delay: 0.3,
 									opacity: 0,
-									ease: 'expo.out',
+									ease: 'power2.out',
 								});
 								gsap.to('.option', {
 									delay: 0.3,
 									duration: 0.3,
 									backgroundColor: '#7C6F64',
 									color: '#7C6F64',
-									ease: 'expo.out',
+									ease: 'power2.out',
 								});
 								indicator++;
 								let clickTl = gsap.timeline();
-								clickTl.to(e, { scale: 0.8, ease: 'expo.out' });
-								clickTl.to(e, { scale: 1, ease: 'expo.out' }, '<.1');
+								clickTl.to(e, { scale: 0.3, ease: 'power2.out' });
+								clickTl.to(e, { scale: 1, ease: 'power2.out' }, '<.05');
 								if (e.style.backgroundColor !== '') {
 									return;
 								} else {
@@ -192,7 +148,7 @@ startButton.addEventListener('click', function () {
 						gsap.to(e, {
 							duration: 0.2,
 							backgroundColor: '#5B8266',
-							ease: 'expo.out',
+							ease: 'power2.out',
 						});
 					});
 
@@ -201,7 +157,7 @@ startButton.addEventListener('click', function () {
 						gsap.to(e, {
 							duration: 0.2,
 							backgroundColor: '#BC4749',
-							ease: 'expo.out',
+							ease: 'power2.out',
 						});
 					});
 				}

@@ -1,47 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="title" content="MythicQuest" />
+		<meta name="description" content="Mythology Trivia Application" />
+		<meta
+			name="keywords"
+			content="game, myth, mythology, trivia game, trivia, web app" />
+		<meta name="robots" content="index, follow" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="language" content="English" />
+		<meta name="revisit-after" content="30 days" />
+		<meta name="author" content="raymayo" />
+		<meta name="theme-color" content="#EBDBB2" />
 
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="title" content="MythicQuest">
-    <meta name="description" content="Mythology Trivia Application">
-    <meta name="keywords" content="game, myth, mythology, trivia game, trivia, web app">
-    <meta name="robots" content="index, follow">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="language" content="English">
-    <meta name="revisit-after" content="30 days">
-    <meta name="author" content="raymayo">
-    <meta name="theme-color" content="#EBDBB2"/>
+		<link rel="apple-touch-icon" href="./img/120.png" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&display=swap"
+			rel="stylesheet" />
 
-    <link rel="apple-touch-icon" href="./img/120.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&display=swap" rel="stylesheet">
+		<link rel="shortcut icon" href="./img/favicon.svg" type="image/svg+xml" />
+		<link rel="stylesheet" href="style.css" />
+		<link
+			rel="manifest"
+			href="https://raymayo.github.io/MythicQuest/manifest.json" />
+		<title>Mythic Quest</title>
+	</head>
+	<body>
+        <div id="main-container">
+		<div id="start-container">
+			<h1 id="game-title">Mythic<br/>Quest</h1>
+			<button id="start-button">Start Game</button>
+		</div>
 
-    <link rel="shortcut icon" href="./img/favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="style.css"/>
-        <link rel="manifest" href="https://raymayo.github.io/MythicQuest/manifest.json">
-    <title>Mythic Quest</title>
-</head>
-
-<body lazy>
-    <div id="main-container">
-            <h1 id="game-title"><span>Mythic </span><br />Quest</h1>
-            <button id="start-button">Start Game</button>
-        <div id="question-box">
-            <p id="question"></p>
-        </div>
-        <div id="answer-container"></div>
-    <div id="end-container">
-        <h2 class="endContent" id="endMessage">Your score is:</h2>
-        <h1 class="endContent" id="scoreBox" lazy>08</h1>
-        <button class="endContent" id="retryButton">Play Again?</button>
-    </div>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
-    <script src="script.js"></script>
-</body>
-
+		<div id="data-container">
+			<div id="question-box">
+				<p id="question"></p>
+			</div>
+			<div id="answer-container">
+            </div>
+		</div>
+		<div id="end-container">
+			<h2 class="endContent" id="endMessage">Your score is:</h2>
+			<h1 class="endContent" id="scoreBox">08</h1>
+			<button class="endContent" id="retryButton">Play Again?</button>
+		</div>
+</div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
+		<script src="script.js"></script>
+	</body>
 </html>
