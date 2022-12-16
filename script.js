@@ -44,7 +44,7 @@ startButton.addEventListener('click', function () {
 			})
 			.then(function (data) {
 				let startTl = gsap.timeline();
-				startTl.to('#game-title', { y: 0, fontSize: '1.5rem', paddingTop: '3rem', ease: 'power2.inOut' });
+				startTl.to('#game-title', { y: 0, fontSize: '3vh', paddingTop: '2rem', ease: 'power2.inOut' });
 				startTl.to(questionContainer,{display:'none', opacity: 0, scale: 0 },'<');
 				startTl.to(answerContainer,{display:'none', opacity: 0, scale: 0 },'<');
 				startTl.to('#data-container', { display: 'grid' })
@@ -56,7 +56,7 @@ startButton.addEventListener('click', function () {
 				console.log(triviaData)
 
 				function showData() {
-					if (indicator === 2) {
+					if (indicator === 10) {
 						question.style.opacity = 0;
 						dataFetched = false;
 
@@ -78,6 +78,7 @@ startButton.addEventListener('click', function () {
 						scoreBox.textContent = `0${score}`;
 					} else {
 						gsap.to('#question', { opacity: 1, ease: 'power2.out' });
+						gsap.from('.option', { color:'#121212', ease: 'power2.out' });
 
 						question.textContent = `${decodeData(
 							triviaData[indicator].question
@@ -104,32 +105,27 @@ startButton.addEventListener('click', function () {
 							answerContainer.children[Math.floor(Math.random() * 3)]
 						);
 
+						let options = document.querySelectorAll('.all')
+
 						let choices = document.querySelectorAll('.option');
 
 						choices.forEach((e) => {
 							e.addEventListener('click', () => {
-								gsap.to('#question', {
-									delay: 0.3,
-									opacity: 0,
-									ease: 'power2.out',
-								});
-								gsap.to('.option', {
-									delay: 0.3,
-									duration: 0.3,
-									backgroundColor: '#7C6F64',
-									color: '#7C6F64',
-									ease: 'power2.out',
-								});
-								indicator++;
 								let clickTl = gsap.timeline();
 								clickTl.to(e, { scale: 0.3, ease: 'power2.out' });
 								clickTl.to(e, { scale: 1, ease: 'power2.out' }, '<.05');
-								if (e.style.backgroundColor !== '') {
+								if (e.style.color !== '') {
 									return;
 								} else {
-									if (e.classList.contains('right-answer')) score++;
+									gsap.to('#question', { delay: 1.5, opacity: 0, ease: 'power2.out', });
+									gsap.to('.option', { delay: 1.5, color: '#121212', ease: 'power2.out', });
+									
+									if (e.classList.contains('right-answer')){
+										score++;
+									} 
 									changeColor();
 									goNextQuestion();
+									indicator++;
 								}
 							});
 						});
@@ -139,7 +135,7 @@ startButton.addEventListener('click', function () {
 				showData();
 
 				function goNextQuestion() {
-					setTimeout(showData, 1000);
+					setTimeout(showData, 2000);
 				}
 
 				function changeColor() {
@@ -147,7 +143,8 @@ startButton.addEventListener('click', function () {
 					greenIndicator.forEach((e) => {
 						gsap.to(e, {
 							duration: 0.2,
-							backgroundColor: '#5B8266',
+							// backgroundColor: '#3f9358',
+							color: '#3f9358',
 							ease: 'power2.out',
 						});
 					});
@@ -156,7 +153,8 @@ startButton.addEventListener('click', function () {
 					redIndicator.forEach((e) => {
 						gsap.to(e, {
 							duration: 0.2,
-							backgroundColor: '#BC4749',
+							// backgroundColor: '#b94448',
+							color: '#b94448',
 							ease: 'power2.out',
 						});
 					});
