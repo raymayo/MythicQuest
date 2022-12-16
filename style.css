@@ -6,7 +6,7 @@ body {
     display: grid
 } */
 
-/* @font-face {
+@font-face {
     font-family: 'bodyBg';
     src: url('./img/Pattern.svg') format('svg');
     font-display: optional;
@@ -16,7 +16,7 @@ body {
     font-family: 'scoreBg';
     src: url('./img/ScoreBg.svg') format('svg');
     font-display: optional;
-} */
+}
 
 #question-box,
 button {
@@ -228,7 +228,7 @@ body{
     }
 
 
-        @media (orientation: landscape) {
+    @media screen and (orientation: landscape) {
             #start-button{
                 font-size: 2rem;
             }
